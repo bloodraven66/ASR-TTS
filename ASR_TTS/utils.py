@@ -5,7 +5,7 @@ import numpy as np
 from scipy.io.wavfile import read as wav_read
 import io
 import ffmpeg
-import soundfile
+import soundfile as sf
 
 AUDIO_HTML = """
 <script>
