@@ -5,6 +5,7 @@ import numpy as np
 from scipy.io.wavfile import read as wav_read
 import io
 import ffmpeg
+import soundfile
 
 AUDIO_HTML = """
 <script>
@@ -109,3 +110,7 @@ def get_audio():
       b.append(r)
     riff = output[:4] + bytes(b) + output[8:]
     return wav_read(io.BytesIO(riff))
+
+def save_audio(y, sr, path):
+    print(f'Audio saved at {path}...')
+    sf.write(path, y, sr)
