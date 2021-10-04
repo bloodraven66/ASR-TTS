@@ -22,4 +22,4 @@ ASR_DATA_INFO = asr_data_info()
 def transcribe(path, modelname):
     asr_model = EncoderDecoderASR.from_hparams(source=ASR_MODEL_INFO.model_dependencies[modelname][0],
                                             savedir=ASR_MODEL_INFO.model_dependencies[modelname][1])
-    asr_model.transcribe_file(path)
+    return asr_model.transcribe_file(path)
