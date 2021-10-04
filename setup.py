@@ -11,5 +11,5 @@ setuptools.setup(
     url='https://github.com/bloodraven66/ASR_TTS',
     license='MIT',
     packages=['ASR_TTS'],
-    install_requires=['requests'],
+    install_requires=['ffmpeg-python'],
 )
