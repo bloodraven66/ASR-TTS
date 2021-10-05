@@ -16,6 +16,23 @@ class asr_model_info():
                                     'wav2vec':['speechbrain/asr-wav2vec2-commonvoice-en',
                                         'pretrained_models/asr-wav2vec2-commonvoice-en']
                                     }
+        self.asr = {'rnn': 'RNN'
+                    'transformers': 'Transformers'
+                    'wav2vec': 'Wav2vec'
+                        }
+        self.lm = {'rnn': 'RNN'
+                    'transformers': 'Transformers'
+                    'wav2vec': 'Transformers'
+                        }
+        self.pretrained = {'rnn': 'https://huggingface.co/speechbrain/asr-crdnn-rnnlm-librispeech'
+                    'transformers': 'https://huggingface.co/speechbrain/asr-transformer-transformerlm-librispeech'
+                    'wav2vec': ' https://huggingface.co/speechbrain/asr-wav2vec2-commonvoice-en'
+                        }
+        self.pretrained_dataset = {'rnn': 'LibriSpeech'
+                    'transformers': 'LibriSpeech'
+                    'wav2vec': 'Common-voice'
+                        }
+
 class asr_data_info():
     def __init__(self):
         self.test_datasets = {
@@ -54,6 +71,19 @@ def select_model(name):
 def list_datasets():
     table = BeautifulTable()
     table.column_headers = ["dataset", "num speakers","num sentences","duration", "link"]
+    for key in ASR_MODEL_INFO.models:
+        table.append_row([key,
+                        ASR_MODEL_INFO.asr[key],
+                        ASR_MODEL_INFO.lm[key],
+                        ASR_MODEL_INFO.pretrained_dataset[key],
+                        ASR_MODEL_INFO.pretrained[key]
+                        ])
+    print(table)
+# list_datasets()
+
+def list_models():
+    table = BeautifulTable()
+    table.column_headers = ["model name", "ASR","LM","pretrained"]
     for key in ASR_DATA_INFO.test_datasets:
         table.append_row([key,
                         ASR_DATA_INFO.test_speakers[key],
@@ -61,8 +91,6 @@ def list_datasets():
                         ASR_DATA_INFO.test_durations[key],
                         ASR_DATA_INFO.test_datasets[key]
                         ])
-    print(table)
-# list_datasets()
 
 def libri_transcribe(path, model, limit_sentence_count=None, batch_size=2, use_batch=True):
     path = data_parse_libri(path)
