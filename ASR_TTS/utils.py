@@ -8,6 +8,7 @@ import ffmpeg
 import soundfile as sf
 from pathlib import Path
 import re
+import shutil
 
 AUDIO_HTML = """
 <script>
@@ -187,3 +188,13 @@ def find_cer(sentence1, sentence2):
     return cer_val, wer_val, cer, wer
 
 # data_stats(path='../../../other_tts_data/librispeech/test_other/test_other/')
+
+def unpack_from_drive(input_path):
+    paths = {'librispeech-clean':'drive/MyDrive/ASR_datasets/test_sets/test-clean.tar.gz',
+            'librispeech-other':'drive/MyDrive/ASR_datasets/test_sets/test-other.tar.gz',
+            'whisper-spire': 'drive/MyDrive/ASR_datasets/test_sets/WSpire-test.zip',
+            'commonvoice-clean':'drive/MyDrive/ASR_datasets/test_sets/cv-test.zip',
+             }
+    shutil.unpack_archive(name[input_path], key)
+    return key
+    
