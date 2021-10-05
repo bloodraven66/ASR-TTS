@@ -1,8 +1,10 @@
-from .utils import data_parse_libri, find_cer
+from utils import data_parse_libri, find_cer
 from tqdm import tqdm
 # import torchaudio
 # from torch.nn.utils.rnn import pad_sequence
 # import torch
+from beautifultable import BeautifulTable
+
 
 class asr_model_info():
     def __init__(self):
@@ -16,7 +18,30 @@ class asr_model_info():
                                     }
 class asr_data_info():
     def __init__(self):
-        self.test_datasets = ['librispeech-clean', 'librispeech-other', 'commonvoice-clean', 'wspire']
+        self.test_datasets = {
+                            'librispeech-clean':'https://www.openslr.org/12',
+                            'librispeech-other':'https://www.openslr.org/12',
+                            'commonvoice-clean':'https://commonvoice.mozilla.org/en/datasets',
+                            'whisper-spire':'FILL'
+                            }
+        self.test_speakers = {
+                            'librispeech-clean':'FILL',
+                            'librispeech-other':'FILL',
+                            'commonvoice-clean':'FILL',
+                            'whisper-spire':'FILL'
+                            }
+        self.test_sentences = {
+                            'librispeech-clean':'FILL',
+                            'librispeech-other':'FILL',
+                            'commonvoice-clean':'FILL',
+                            'whisper-spire':'FILL'
+                            }
+        self.test_durations = {
+                            'librispeech-clean':'FILL',
+                            'librispeech-other':'FILL',
+                            'commonvoice-clean':'FILL',
+                            'whisper-spire':'FILL'
+                            }
 
 
 ASR_MODEL_INFO  = asr_model_info()
@@ -26,6 +51,18 @@ def select_model(name):
     assert name in ASR_MODEL_INFO.models
     return ASR_MODEL_INFO.model_dependencies[name][0], ASR_MODEL_INFO.model_dependencies[name][1]
 
+def list_datasets():
+    table = BeautifulTable()
+    table.column_headers = ["dataset", "num speakers","num sentences","duration", "link"]
+    for key in ASR_DATA_INFO.test_datasets:
+        table.append_row([key,
+                        ASR_DATA_INFO.test_speakers[key],
+                        ASR_DATA_INFO.test_sentences[key],
+                        ASR_DATA_INFO.test_durations[key],
+                        ASR_DATA_INFO.test_datasets[key]
+                        ])
+    print(table)
+# list_datasets()
 
 def libri_transcribe(path, model, limit_sentence_count=None, batch_size=2, use_batch=True):
     path = data_parse_libri(path)
