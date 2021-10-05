@@ -195,6 +195,5 @@ def unpack_from_drive(input_path):
             'whisper-spire': 'drive/MyDrive/ASR_datasets/test_sets/WSpire-test.zip',
             'commonvoice-clean':'drive/MyDrive/ASR_datasets/test_sets/cv-test.zip',
              }
-    shutil.unpack_archive(name[input_path], key)
+    shutil.unpack_archive(paths[input_path], key)
     return key
-    
