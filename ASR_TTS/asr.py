@@ -16,20 +16,20 @@ class asr_model_info():
                                     'wav2vec':['speechbrain/asr-wav2vec2-commonvoice-en',
                                         'pretrained_models/asr-wav2vec2-commonvoice-en']
                                     }
-        self.asr = {'rnn': 'RNN'
-                    'transformers': 'Transformers'
+        self.asr = {'rnn': 'RNN',
+                    'transformers': 'Transformers',
                     'wav2vec': 'Wav2vec'
                         }
-        self.lm = {'rnn': 'RNN'
-                    'transformers': 'Transformers'
+        self.lm = {'rnn': 'RNN',
+                    'transformers': 'Transformers',
                     'wav2vec': 'Transformers'
                         }
-        self.pretrained = {'rnn': 'https://huggingface.co/speechbrain/asr-crdnn-rnnlm-librispeech'
-                    'transformers': 'https://huggingface.co/speechbrain/asr-transformer-transformerlm-librispeech'
+        self.pretrained = {'rnn': 'https://huggingface.co/speechbrain/asr-crdnn-rnnlm-librispeech',
+                    'transformers': 'https://huggingface.co/speechbrain/asr-transformer-transformerlm-librispeech',
                     'wav2vec': ' https://huggingface.co/speechbrain/asr-wav2vec2-commonvoice-en'
                         }
-        self.pretrained_dataset = {'rnn': 'LibriSpeech'
-                    'transformers': 'LibriSpeech'
+        self.pretrained_dataset = {'rnn': 'LibriSpeech',
+                    'transformers': 'LibriSpeech',
                     'wav2vec': 'Common-voice'
                         }
 
