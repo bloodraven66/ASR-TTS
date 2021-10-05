@@ -1,4 +1,4 @@
-from utils import data_parse_libri, find_cer
+from .utils import data_parse_libri, find_cer
 from tqdm import tqdm
 # import torchaudio
 # from torch.nn.utils.rnn import pad_sequence
