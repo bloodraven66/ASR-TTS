@@ -24,7 +24,7 @@ ASR_DATA_INFO = asr_data_info()
 
 def select_model(name):
     assert name in ASR_MODEL_INFO.models
-    return ASR_MODEL_INFO.model_dependencies[modelname][0], ASR_MODEL_INFO.model_dependencies[modelname][1]
+    return ASR_MODEL_INFO.model_dependencies[name][0], ASR_MODEL_INFO.model_dependencies[name][1]
 
 
 def libri_transcribe(path, model, limit_sentence_count=None, batch_size=2, use_batch=True):
