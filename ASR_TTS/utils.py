@@ -10,6 +10,12 @@ from pathlib import Path
 import re
 import shutil
 
+PATHS = {'librispeech-clean':'drive/MyDrive/ASR_datasets/test_sets/test-clean.tar.gz',
+        'librispeech-other':'drive/MyDrive/ASR_datasets/test_sets/test-other.tar.gz',
+        'whisper-spire': 'drive/MyDrive/ASR_datasets/test_sets/WSpire-test.zip',
+        'commonvoice-clean':'drive/MyDrive/ASR_datasets/test_sets/cv-test.zip',
+         }
+
 AUDIO_HTML = """
 <script>
 var my_div = document.createElement("DIV");
@@ -141,6 +147,13 @@ def data_parse_libri(path):
         mapping[filename] = text
     return mapping
 
+def parse_files(path):
+    key = path.split('/')[0]
+    if key in ['librispeech-clean', 'librispeech-other']:
+        return data_parse_libri(path)
+    else:
+        raise NotImplementedError
+
 import re
 
 def levenshtein(u, v):
@@ -190,10 +203,6 @@ def find_cer(sentence1, sentence2):
 # data_stats(path='../../../other_tts_data/librispeech/test_other/test_other/')
 
 def unpack_from_drive(key):
-    paths = {'librispeech-clean':'drive/MyDrive/ASR_datasets/test_sets/test-clean.tar.gz',
-            'librispeech-other':'drive/MyDrive/ASR_datasets/test_sets/test-other.tar.gz',
-            'whisper-spire': 'drive/MyDrive/ASR_datasets/test_sets/WSpire-test.zip',
-            'commonvoice-clean':'drive/MyDrive/ASR_datasets/test_sets/cv-test.zip',
-             }
-    shutil.unpack_archive(paths[key], key)
+
+    shutil.unpack_archive(PATHS[key], key)
     return key
