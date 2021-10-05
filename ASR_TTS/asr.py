@@ -71,7 +71,7 @@ def select_model(name):
 def list_datasets():
     table = BeautifulTable()
     table.column_headers = ["dataset", "num speakers","num sentences","duration", "link"]
-    for key in ASR_MODEL_INFO.models:
+    for key in ASR_MODEL_INFO.test_datasets:
         table.append_row([key,
                         ASR_DATA_INFO.test_speakers[key],
                         ASR_DATA_INFO.test_sentences[key],
@@ -84,13 +84,14 @@ def list_datasets():
 def list_models():
     table = BeautifulTable()
     table.column_headers = ["model name", "ASR","LM","pretrained", "link"]
-    for key in ASR_DATA_INFO.test_datasets:
+    for key in ASR_DATA_INFO.models:
         table.append_row([key,
                         ASR_MODEL_INFO.asr[key],
                         ASR_MODEL_INFO.lm[key],
                         ASR_MODEL_INFO.pretrained_dataset[key],
                         ASR_MODEL_INFO.pretrained[key]
                         ])
+    print(table)
 
 def libri_transcribe(path, model, limit_sentence_count=None, batch_size=2, use_batch=True):
     path = data_parse_libri(path)
