@@ -72,7 +72,7 @@ def list_datasets():
     table = BeautifulTable()
     table.column_headers = ["dataset", "num speakers","num sentences","duration", "link"]
     for key in ASR_MODEL_INFO.models:
-        table.append_row(key,
+        table.append_row([key,
                         ASR_DATA_INFO.test_speakers[key],
                         ASR_DATA_INFO.test_sentences[key],
                         ASR_DATA_INFO.test_durations[key],
