@@ -1,5 +1,5 @@
 from speechbrain.pretrained import EncoderDecoderASR
-from utils import data_parse_libri, find_cer
+from .utils import data_parse_libri, find_cer
 from tqdm import tqdm
 import torchaudio
 from torch.nn.utils.rnn import pad_sequence
@@ -82,4 +82,4 @@ def libri_transcribe(path, model, limit_sentence_count=None, batch_size=2, use_b
                     break
 
     print(f'CER: {sum(cer)/len(cer)}, WER: {sum(wer)/len(wer)}')
-libri_transcribe('../../../other_tts_data/librispeech/test_clean/test_clean/', 'wav2vec', limit_sentence_count=5)
+# libri_transcribe('../../../other_tts_data/librispeech/test_clean/test_clean/', 'wav2vec', limit_sentence_count=5)
