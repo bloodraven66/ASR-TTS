@@ -188,7 +188,7 @@ def parse_files(path):
     elif key == 'commonvoice-clean':
         return data_parse_cv(path)
     elif key == 'whisper-spire':
-        return data_parse_spire
+        return data_parse_spire(path)
     else:
         raise NotImplementedError
 
