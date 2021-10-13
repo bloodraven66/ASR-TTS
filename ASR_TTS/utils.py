@@ -17,6 +17,12 @@ PATHS = {'librispeech-clean':'drive/MyDrive/ASR_datasets/test_sets/test-clean.ta
         'commonvoice-clean':'drive/MyDrive/ASR_datasets/test_sets/cv-test.zip',
          }
 
+NoDrive_PATHS = {'librispeech-clean':'ASR_datasets/test_sets/test-clean.tar.gz',
+        'librispeech-other':'ASR_datasets/test_sets/test-other.tar.gz',
+        'whisper-spire': 'ASR_datasets/test_sets/WSpire-test.zip',
+        'commonvoice-clean':'ASR_datasets/test_sets/cv-test.zip',
+         }
+
 AUDIO_HTML = """
 <script>
 var my_div = document.createElement("DIV");
@@ -243,7 +249,9 @@ def find_cer(sentence1, sentence2):
 
 # data_stats(path='../../../other_tts_data/librispeech/test_other/test_other/')
 
-def unpack_from_drive(key):
-
-    shutil.unpack_archive(PATHS[key], key)
+def unpack_from_drive(key, from_drive=False):
+    if from_drive:
+        shutil.unpack_archive(PATHS[key], key)
+    else:
+        shutil.unpack_archive(NoDrive_PATHS[key], key)    
     return key
