@@ -185,7 +185,7 @@ model: !new:torch.nn.ModuleList
    - [!ref <enc>, !ref <emb>, !ref <dec>, !ref <ctc_lin>, !ref <seq_lin>]
 
 checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
-   checkpoints_dir: !ref <save_folder>
+   checkpoints_dir: save
    recoverables:
       model: !ref <model>
 
