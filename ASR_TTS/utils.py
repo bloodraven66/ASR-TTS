@@ -150,21 +150,25 @@ def data_parse_libri(path):
 
 def data_parse_cv(path):
     files = get_files(path, '.csv')
+    audio_files = get_files(path, '.mp3')
     with open(files[0], 'r') as f:
         data = f.read()
     data = [data_ for data_ in data.split('\n') if len(data_)>0][1:]
-    mapping = {os.path.join(path, data_.split(',')[0].split('/')[-1]): data_.split(',')[1] for data_ in data}
+    mapping = {os.path.join('/'.join(audio_files[0].split('/')[:-1]), data_.split(',')[0].split('/')[-1]): data_.split(',')[1] for data_ in data}
     return mapping
 
 def data_parse_spire(path):
     audio_files = get_files(path, '.wav')
     files = get_files(path, '.txt')
     audio_maps = {}
+    audio_name_maps = {}
     for filename in audio_files:
         key = Path(filename).stem[:-4].split('_')
         if '_'.join(key[:3]) not in audio_maps:
             audio_maps['_'.join(key[:3])] = [key[-1]]
+            audio_name_maps['_'.join(key[:3])] = [filename]
         else:
+            audio_name_maps['_'.join(key[:3])].append(filename)
             audio_maps['_'.join(key[:3])].append(key[-1])
     text_map = {}
     current_sub = set()
@@ -175,9 +179,10 @@ def data_parse_spire(path):
         key = '_'.join(key)
         if key not in current_sub:
             current_sub.add(key)
+            paths = [x for _, x in sorted(zip([int(i) for i in audio_maps[key]], audio_name_maps[key]))]
             keys = sorted([int(i) for i in audio_maps[key]])
         data = [data_ for data_ in data.split('\n') if len(data_)>2]
-        key_text = {(key+'_'+str(keys[idx-1]) if keys[idx-1]>9 else key+'_0'+str(keys[idx-1])):data_.split('.')[1] for idx, data_ in enumerate(data)}
+        key_text = {paths[idx]:data_.split('.')[1] for idx, data_ in enumerate(data)}
         text_map = {**text_map, **key_text}
     return text_map
 
