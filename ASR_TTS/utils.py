@@ -137,7 +137,7 @@ def get_files(path, extension):
     return [str(n) for n in list(path.rglob(f'*{extension}'))]
 
 def data_parse_libri(path):
-    audio_files = get_files(path, '.flac')download_from_google_drive
+    audio_files = get_files(path, '.flac')
     files = get_files(path, '.txt')
     text_map = {}
     for filename in files:
