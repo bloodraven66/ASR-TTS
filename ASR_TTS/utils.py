@@ -283,3 +283,5 @@ def download_all_models(download_fn):
     for modelname in models:
         print(f'Downloading pretrained model for {modelname[:-15]}, saving as {modelname}\n')
         download_fn(models[modelname], modelname)
+        
+    return list(models.keys())
