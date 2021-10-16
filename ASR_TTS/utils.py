@@ -5,6 +5,7 @@ import numpy as np
 from scipy.io.wavfile import read as wav_read
 import io
 import ffmpeg
+import matplotlib.pylab as plt
 import soundfile as sf
 from pathlib import Path
 import re
@@ -255,3 +256,14 @@ def unpack_from_drive(key, from_drive=False):
     else:
         shutil.unpack_archive(NoDrive_PATHS[key], key)    
     return key
+
+def plot_data_3x(data, figsize=(16, 4)):
+    fig, axes = plt.subplots(1, len(data), figsize=figsize)
+    for i in range(len(data)):
+        axes[i].imshow(data[i], aspect='auto', origin='bottom', 
+                       interpolation='none', cmap='viridis')
+        
+ def plot_data(data, figsize=(5, 4)):
+    plt.figure(figsize=figsize)
+    plt.imshow(data, aspect='auto', origin='bottom', 
+                    interpolation='none', cmap='viridis')
