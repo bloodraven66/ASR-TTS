@@ -258,7 +258,7 @@ def unpack_from_drive(key, from_drive=False):
     return key
 
 def plot_data_3x(data, figsize=(16, 4)):
-    fig, axes = plt.subplots(1, len(data), figsize=figsizplot_data_3xe)
+    fig, axes = plt.subplots(1, len(data), figsize=figsize)
     for i in range(len(data)):
         axes[i].imshow(data[i], aspect='auto', origin='bottom', 
                        interpolation='none', cmap='viridis')
