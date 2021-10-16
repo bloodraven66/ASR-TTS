@@ -275,11 +275,11 @@ def plot_data(data, figsize=(5, 4)):
 #     confirm_text = confirm_text[0]
 #     !curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm={confirm_text}&id={file_id}" -o {file_name}
     
-def download_pretrained_from_google_drive(download_fn):
+def download_all_models(download_fn):
     models = {'tacotron2_checkpoint.pth':'1c5ZTuT7J08wLUoVZ2KkUs_VdZuJ86ZqA',
               'fastspeech_checkpoint.pth':'1vMrKtbjPj9u_o3Y-8prE6hHCc6Yj4Nqk',
               'glowtts_checkpoint.pth':'1JiCMBVTG4BMREK8cT3MYck1MgYvwASL0',
              'waveglow_checkpoint.pth':'1WsibBTsuRg_SF2Z6L6NFRTT-NjEy1oTx'}
     for modelname in models:
-        print(f'Downloading pretrained model for {modelname[:-14}, saving as {modelname}')
+        print(f'Downloading pretrained model for {modelname[:-14]}, saving as {modelname}')
         download_fn(models[modelname], modelname)
