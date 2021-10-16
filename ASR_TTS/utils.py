@@ -8,12 +8,19 @@ import ffmpeg
 import soundfile as sf
 from pathlib import Path
 import re
+import os
 import shutil
 
 PATHS = {'librispeech-clean':'drive/MyDrive/ASR_datasets/test_sets/test-clean.tar.gz',
         'librispeech-other':'drive/MyDrive/ASR_datasets/test_sets/test-other.tar.gz',
         'whisper-spire': 'drive/MyDrive/ASR_datasets/test_sets/WSpire-test.zip',
         'commonvoice-clean':'drive/MyDrive/ASR_datasets/test_sets/cv-test.zip',
+         }
+
+NoDrive_PATHS = {'librispeech-clean':'ASR_datasets/test_sets/test-clean.tar.gz',
+        'librispeech-other':'ASR_datasets/test_sets/test-other.tar.gz',
+        'whisper-spire': 'ASR_datasets/test_sets/WSpire-test.zip',
+        'commonvoice-clean':'ASR_datasets/test_sets/cv-test.zip',
          }
 
 AUDIO_HTML = """
@@ -147,14 +154,54 @@ def data_parse_libri(path):
         mapping[filename] = text
     return mapping
 
+def data_parse_cv(path):
+    files = get_files(path, '.csv')
+    audio_files = get_files(path, '.mp3')
+    with open(files[0], 'r') as f:
+        data = f.read()
+    data = [data_ for data_ in data.split('\n') if len(data_)>0][1:]
+    mapping = {os.path.join('/'.join(audio_files[0].split('/')[:-1]), data_.split(',')[0].split('/')[-1]): data_.split(',')[1] for data_ in data}
+    return mapping
+
+def data_parse_spire(path):
+    audio_files = get_files(path, '.wav')
+    files = get_files(path, '.txt')
+    audio_maps = {}
+    audio_name_maps = {}
+    for filename in audio_files:
+        key = Path(filename).stem[:-4].split('_')
+        if '_'.join(key[:3]) not in audio_maps:
+            audio_maps['_'.join(key[:3])] = [key[-1]]
+            audio_name_maps['_'.join(key[:3])] = [filename]
+        else:
+            audio_name_maps['_'.join(key[:3])].append(filename)
+            audio_maps['_'.join(key[:3])].append(key[-1])
+    text_map = {}
+    current_sub = set()
+    for filename in files:
+        with open(str(filename), 'r') as f:
+            data = f.read()
+        key = Path(filename).stem.split('_')[1:4]
+        key = '_'.join(key)
+        if key not in current_sub:
+            current_sub.add(key)
+            paths = [x for _, x in sorted(zip([int(i) for i in audio_maps[key]], audio_name_maps[key]))]
+            keys = sorted([int(i) for i in audio_maps[key]])
+        data = [data_ for data_ in data.split('\n') if len(data_)>2]
+        key_text = {paths[idx]:data_.split('.')[1] for idx, data_ in enumerate(data)}
+        text_map = {**text_map, **key_text}
+    return text_map
+
 def parse_files(path):
     key = path.split('/')[0]
     if key in ['librispeech-clean', 'librispeech-other']:
         return data_parse_libri(path)
+    elif key == 'commonvoice-clean':
+        return data_parse_cv(path)
+    elif key == 'whisper-spire':
+        return data_parse_spire(path)
     else:
         raise NotImplementedError
-
-import re
 
 def levenshtein(u, v):
     prev = None
@@ -202,7 +249,9 @@ def find_cer(sentence1, sentence2):
 
 # data_stats(path='../../../other_tts_data/librispeech/test_other/test_other/')
 
-def unpack_from_drive(key):
-
-    shutil.unpack_archive(PATHS[key], key)
+def unpack_from_drive(key, from_drive=False):
+    if from_drive:
+        shutil.unpack_archive(PATHS[key], key)
+    else:
+        shutil.unpack_archive(NoDrive_PATHS[key], key)    
     return key
