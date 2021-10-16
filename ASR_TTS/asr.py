@@ -39,25 +39,25 @@ class asr_data_info():
                             'librispeech-clean':'https://www.openslr.org/12',
                             'librispeech-other':'https://www.openslr.org/12',
                             'commonvoice-clean':'https://commonvoice.mozilla.org/en/datasets',
-                            'whisper-spire':'FILL'
+                            'whisper-spire':'-'
                             }
         self.test_speakers = {
-                            'librispeech-clean':'FILL',
-                            'librispeech-other':'FILL',
-                            'commonvoice-clean':'FILL',
-                            'whisper-spire':'FILL'
+                            'librispeech-clean':'40',
+                            'librispeech-other':'33',
+                            'commonvoice-clean':'3995',
+                            'whisper-spire':'88'
                             }
         self.test_sentences = {
-                            'librispeech-clean':'FILL',
-                            'librispeech-other':'FILL',
-                            'commonvoice-clean':'FILL',
-                            'whisper-spire':'FILL'
+                            'librispeech-clean':'2620',
+                            'librispeech-other':'2939',
+                            'commonvoice-clean':'3995',
+                            'whisper-spire':'4396'
                             }
         self.test_durations = {
-                            'librispeech-clean':'FILL',
-                            'librispeech-other':'FILL',
-                            'commonvoice-clean':'FILL',
-                            'whisper-spire':'FILL'
+                            'librispeech-clean':'5.4 hours',
+                            'librispeech-other':'5.1 hours',
+                            'commonvoice-clean':'4.9 hours',
+                            'whisper-spire':'3.8 hours'
                             }
 
 
