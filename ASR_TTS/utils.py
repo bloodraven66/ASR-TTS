@@ -122,7 +122,7 @@ def get_audio():
     riff_chunk_size = len(output) - 8
     q = riff_chunk_size
     b = []
-    for i in range(4):
+    for i in range(4):plot_data_3x
       q, r = divmod(q, 256)
       b.append(r)
     riff = output[:4] + bytes(b) + output[8:]
@@ -263,7 +263,7 @@ def plot_data_3x(data, figsize=(16, 4)):
         axes[i].imshow(data[i], aspect='auto', origin='bottom', 
                        interpolation='none', cmap='viridis')
         
- def plot_data(data, figsize=(5, 4)):
+def plot_data(data, figsize=(5, 4)):
     plt.figure(figsize=figsize)
     plt.imshow(data, aspect='auto', origin='bottom', 
                     interpolation='none', cmap='viridis')
