@@ -122,7 +122,7 @@ def get_audio():
     riff_chunk_size = len(output) - 8
     q = riff_chunk_size
     b = []
-    for i in range(4):plot_data_3x
+    for i in range(4):
       q, r = divmod(q, 256)
       b.append(r)
     riff = output[:4] + bytes(b) + output[8:]
@@ -258,7 +258,7 @@ def unpack_from_drive(key, from_drive=False):
     return key
 
 def plot_data_3x(data, figsize=(16, 4)):
-    fig, axes = plt.subplots(1, len(data), figsize=figsize)
+    fig, axes = plt.subplots(1, len(data), figsize=figsizplot_data_3xe)
     for i in range(len(data)):
         axes[i].imshow(data[i], aspect='auto', origin='bottom', 
                        interpolation='none', cmap='viridis')
@@ -267,3 +267,19 @@ def plot_data(data, figsize=(5, 4)):
     plt.figure(figsize=figsize)
     plt.imshow(data, aspect='auto', origin='bottom', 
                     interpolation='none', cmap='viridis')
+
+def download_pretrained_from_google_drive_(file_id, file_name):
+    !rm -f ./cookie
+    !curl -c ./cookie -s -L "https://drive.google.com/uc?export=download&id={file_id}" > /dev/null
+    confirm_text = !awk '/download/ {print $NF}' ./cookie
+    confirm_text = confirm_text[0]
+    !curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm={confirm_text}&id={file_id}" -o {file_name}
+    
+def download_pretrained_from_google_drive():
+    models = {'tacotron2_checkpoint.pth':'1c5ZTuT7J08wLUoVZ2KkUs_VdZuJ86ZqA',
+              'fastspeech_checkpoint.pth':'1vMrKtbjPj9u_o3Y-8prE6hHCc6Yj4Nqk',
+              'glowtts_checkpoint.pth':'1JiCMBVTG4BMREK8cT3MYck1MgYvwASL0',
+             'waveglow_checkpoint.pth':'1WsibBTsuRg_SF2Z6L6NFRTT-NjEy1oTx'}
+    for modelname in models:
+        print(f'Downloading pretrained model for {modelname[:-14}, saving as {modelname}')
+        download_pretrained_from_google_drive_(models[modelname], modelname)
