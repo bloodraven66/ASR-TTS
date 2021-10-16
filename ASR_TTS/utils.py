@@ -137,7 +137,7 @@ def get_files(path, extension):
     return [str(n) for n in list(path.rglob(f'*{extension}'))]
 
 def data_parse_libri(path):
-    audio_files = get_files(path, '.flac')
+    audio_files = get_files(path, '.flac')download_from_google_drive
     files = get_files(path, '.txt')
     text_map = {}
     for filename in files:
@@ -281,5 +281,5 @@ def download_all_models(download_fn):
               'glowtts_checkpoint.pth':'1JiCMBVTG4BMREK8cT3MYck1MgYvwASL0',
              'waveglow_checkpoint.pth':'1WsibBTsuRg_SF2Z6L6NFRTT-NjEy1oTx'}
     for modelname in models:
-        print(f'Downloading pretrained model for {modelname[:-14]}, saving as {modelname}')
+        print(f'Downloading pretrained model for {modelname[:-15]}, saving as {modelname}\n')
         download_fn(models[modelname], modelname)
