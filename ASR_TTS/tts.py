@@ -45,6 +45,8 @@ class Args():
                 gnd_score.append(self.score[idx])
             else:
                 gen_score.append(self.score[idx])
+        print('Model:', self.modelname)
+        print('Test dataset:', self.test_dataset)
         print('Generated MOS:', sum(gen_score)/len(gen_score))
         print('Ground truth MOS:', sum(gnd_score)/len(gnd_score))
 
