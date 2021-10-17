@@ -76,7 +76,7 @@ class tts_data_info():
         self.test_datasets_source = {'ljspeech_sentences': 'All sentences from LJSpeech test set from tacotron2 training', 
                                     'fastspeech_hard_sentences': 'Sentences which are known to peform poorly in TTS, manually listed in FastSpeech paper', 
                                     'common_voice_sentences': 'Sentences randomly selected from common voice corpus'}
-        self.test_datasets_eval = {'ljspeech_sentences': 'MOS and MCD', 
+        self.test_datasets_eval = {'ljspeech_sentences': 'MOS', 
                                 'fastspeech_hard_sentences': 'MOS', 
                                'common_voice_sentences': 'MOS'}
                             
@@ -105,7 +105,7 @@ def list_datasets():
                         ])
     print(table)
     print('MOS: Mean Opinion Score (subjective evaluation)')
-    print('MCD: Mel Cepstral Distortion (objective evaluation)')
+#     print('MCD: Mel Cepstral Distortion (objective evaluation)')
 
  
 class tts_model_info():
