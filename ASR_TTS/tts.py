@@ -1,4 +1,5 @@
 from beautifultable import BeautifulTable
+import ipywidgets as widgets
 class Args():
     def __init__(self, test_dataset, modelname, num_samples=4):
         self.i = 0
