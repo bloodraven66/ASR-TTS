@@ -111,25 +111,43 @@ def list_datasets():
 class tts_model_info():
     def __init__(self):
         self.tts_models = ['tacotron2', 'fastspeech', 'glow-tts']
-        self.vocoders = ['WaveGlow', 'HiFiGAN']
+#         self.vocoders = ['WaveGlow', 'HiFiGAN']
+        self.vocoders = ['WaveGlow']
 
+#         self.model_paper = {'tacotron2':'https://arxiv.org/pdf/1712.05884.pdf',
+#                             'fastspeech':'https://arxiv.org/pdf/1905.09263.pdf',
+#                             'glow-tts':'https://arxiv.org/pdf/2005.11129.pdf',
+#                             'WaveGlow':'https://arxiv.org/pdf/1811.00002.pdf',
+#                             'HiFiGAN':'https://arxiv.org/pdf/2010.05646.pdf'}
+
+#         self.repository = {'tacotron2':'https://github.com/NVIDIA/tacotron2',
+#                             'fastspeech':'https://github.com/xcmyz/FastSpeech',
+#                             'glow-tts':'https://github.com/jaywalnut310/glow-tts',
+#                            'WaveGlow':'https://github.com/NVIDIA/waveglow',
+#                            'HiFiGAN':'https://github.com/jik876/hifi-gan'}
+
+#         self.pretrained_dataset = {'tacotron2':'LJSpeech',
+#                                 'fastspeech':'LJSpeech',
+#                                 'glow-tts':'LJSpeech',
+#                                 'WaveGlow':'LJSpeech',
+#                                 'HiFiGAN':'LJSpeech'}
         self.model_paper = {'tacotron2':'https://arxiv.org/pdf/1712.05884.pdf',
                             'fastspeech':'https://arxiv.org/pdf/1905.09263.pdf',
                             'glow-tts':'https://arxiv.org/pdf/2005.11129.pdf',
-                            'WaveGlow':'https://arxiv.org/pdf/1811.00002.pdf',
-                            'HiFiGAN':'https://arxiv.org/pdf/2010.05646.pdf'}
+                            'WaveGlow':'https://arxiv.org/pdf/1811.00002.pdf'
+                           }
 
         self.repository = {'tacotron2':'https://github.com/NVIDIA/tacotron2',
                             'fastspeech':'https://github.com/xcmyz/FastSpeech',
                             'glow-tts':'https://github.com/jaywalnut310/glow-tts',
-                           'WaveGlow':'https://github.com/NVIDIA/waveglow',
-                           'HiFiGAN':'https://github.com/jik876/hifi-gan'}
+                           'WaveGlow':'https://github.com/NVIDIA/waveglow'
+                          }
 
         self.pretrained_dataset = {'tacotron2':'LJSpeech',
                                 'fastspeech':'LJSpeech',
                                 'glow-tts':'LJSpeech',
-                                'WaveGlow':'LJSpeech',
-                                'HiFiGAN':'LJSpeech'}
+                                'WaveGlow':'LJSpeech'
+                                  }
         
 
 TTS_MODEL_INFO = tts_model_info()
