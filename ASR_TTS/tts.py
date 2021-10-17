@@ -70,3 +70,22 @@ def list_models():
                         TTS_MODEL_INFO.pretrained_dataset[key],
                         ])
     print(table)
+    
+def extract_test_pairs(dataset_name, dataset_dict, ljspeech_path):
+    with open(dataset_dict[dataset_name], 'r') as f:
+        data = f.read()
+        
+    if dataset_name == 'ljspeech_sentences':
+        data = data.split('\n')[:-1]
+        test_keys = {os.path.join(ljspeech_path, k.split('|')[0].split('/')[-1]):k.split('|')[-1] for k in data} 
+    
+    elif dataset_name == 'fastspeech_hard_sentences':
+        test_keys = {d.split('.')[0]:'.'.join(d.split('.')[1:]).strip() for d in data.split('\n') if len(d)>0}
+
+    elif dataset_name == 'common_voice_sentences':
+        test_keys = {f'{i}':d for i, d in enumerate(data.split('\n')) if len(d)>0}
+
+    else:
+        raise NotImplementedError
+    
+    return test_keys
