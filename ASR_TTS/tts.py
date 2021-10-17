@@ -1,4 +1,60 @@
 from beautifultable import BeautifulTable
+class Args():
+    def __init__(self, test_dataset, modelname, num_samples=4):
+        self.i = 0
+        self.score = []
+        self.num_samples = num_samples
+        self.test_dataset = test_dataset
+        self.modelname = modelname
+        print(f'Starting MOS evaluation on {modelname} model with {self.num_samples//2} sentences from {test_dataset}')
+
+    def prepare_mos_files(self, arrays, text, ljspeech_path):
+        indices = np.random.choice(len(arrays), self.num_samples//2)
+        arrays = [arrays[a] for a in range(len(arrays)) if a in indices]
+        text = [text[a] for a in range(len(text)) if a in indices]
+        with open('tacotron2/filelists/ljs_audio_text_test_filelist.txt', 'r') as f:
+            data = f.read()
+        data = data.split('\n')[:-1]
+        test_keys = {os.path.join(ljspeech_path, k.split('|')[0].split('/')[-1]):k.split('|')[-1] for k in data} 
+        indices = np.random.choice(len(test_keys), self.num_samples//2)
+        audio = [wavfile.read(list(test_keys.keys())[a])[-1] for a in range(len(test_keys)) if a in indices]
+        ljtext = [list(test_keys.values())[a] for a in range(len(test_keys)) if a in indices]
+        final_audios = arrays + audio
+        final_text = text + ljtext
+        random_ids = [i for i in range(len(final_audios))]
+        random.shuffle(random_ids)
+        self.order_id = random_ids
+        final_audios_, final_text_, ids_ = [], [], [] 
+        for i in random_ids:
+            final_audios_.append(final_audios[i])
+            final_text_.append(final_text[i])
+        return final_audios_, final_text_
+    
+    def final_scores(self):
+        self.score = self.score[1:]
+        mos_scores = sum(self.score)/len(self.score)
+        gnd_score, gen_score = [], []
+        for idx, id in enumerate(self.order_id):
+            if id > self.num_samples//2-1:
+                gnd_score.append(self.score[idx])
+            else:
+                gen_score.append(self.score[idx])
+        print('Generated MOS:', sum(gen_score)/len(gen_score))
+        print('Ground truth MOS:', sum(gnd_score)/len(gnd_score))
+
+        
+mos_scoring = widgets.FloatSlider(
+    value=3,
+    min=0,
+    max=5,
+    step=0.5,
+    description='MOS score',
+    disabled=False,
+    continuous_update=False,
+    orientation='horizontal',
+    readout=True,
+    readout_format='.1f',
+)
 
 class tts_data_info():
     def __init__(self):
