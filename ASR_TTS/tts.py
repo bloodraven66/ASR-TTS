@@ -1,4 +1,6 @@
 from beautifultable import BeautifulTable
+import os
+from scipy.io import wavfile
 import ipywidgets as widgets
 import numpy as np
 
