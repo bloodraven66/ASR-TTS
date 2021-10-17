@@ -99,19 +99,7 @@ def list_datasets():
     print(table)
     print('MOS: Mean Opinion Score (subjective evaluation)')
     print('MCD: Mel Cepstral Distortion (objective evaluation)')
-TTS_DATA_INFO = tts_data_info()
 
-def list_datasets():
-    table = BeautifulTable()
-    table.column_headers = ["dataset", "num speakers","num sentences","duration", "link"]
-    for key in TTS_DATA_INFO.test_datasets:
-        table.append_row([key,
-                        TTS_DATA_INFO.test_speakers[key],
-                        TTS_DATA_INFO.test_sentences[key],
-                        TTS_DATA_INFO.test_durations[key],
-                        TTS_DATA_INFO.test_datasets[key]
-                        ])
-    print(table)
  
 class tts_model_info():
     def __init__(self):
