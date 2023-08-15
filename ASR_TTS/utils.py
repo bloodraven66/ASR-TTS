@@ -260,12 +260,12 @@ def unpack_from_drive(key, from_drive=False):
 def plot_data_3x(data, figsize=(16, 4)):
     fig, axes = plt.subplots(1, len(data), figsize=figsize)
     for i in range(len(data)):
-        axes[i].imshow(data[i], aspect='auto', origin='bottom', 
+        axes[i].imshow(data[i], aspect='auto', origin='lower', 
                        interpolation='none', cmap='viridis')
         
 def plot_data(data, figsize=(5, 4)):
     plt.figure(figsize=figsize)
-    plt.imshow(data, aspect='auto', origin='bottom', 
+    plt.imshow(data, aspect='auto', origin='lower', 
                     interpolation='none', cmap='viridis')
 
 # def download_pretrained_from_google_drive_(file_id, file_name):
