@@ -18,7 +18,7 @@ class Args():
         indices = np.random.choice(len(arrays), self.num_samples//2)
         arrays = [arrays[a] for a in range(len(arrays)) if a in indices]
         text = [text[a] for a in range(len(text)) if a in indices]
-        with open('tacotron2/filelists/ljs_audio_text_test_filelist.txt', 'r') as f:
+        with open('tacotron2/filelists/ljs_audio_text_test_filelist.txt', 'r', encoding='utf-8') as f:
             data = f.read()
         data = data.split('\n')[:-1]
         test_keys = {os.path.join(ljspeech_path, k.split('|')[0].split('/')[-1]):k.split('|')[-1] for k in data} 
@@ -177,7 +177,7 @@ def list_models():
     print(table)
     
 def extract_test_pairs(dataset_name, dataset_dict, ljspeech_path):
-    with open(dataset_dict[dataset_name], 'r') as f:
+    with open(dataset_dict[dataset_name], 'r', encoding='utf-8') as f:
         data = f.read()
         
     if dataset_name == 'ljspeech_sentences':
