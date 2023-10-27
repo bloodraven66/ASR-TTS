@@ -18,7 +18,7 @@ class Args():
         indices = np.random.choice(len(arrays), self.num_samples//2)
         arrays = [arrays[a] for a in range(len(arrays)) if a in indices]
         text = [text[a] for a in range(len(text)) if a in indices]
-        with open('tacotron2/filelists/ljs_audio_text_test_filelist.txt', 'r', encoding='utf-8') as f:
+        with open('tacotron2_train_batch/filelists/ljs_audio_text_test_filelist.txt', 'r', encoding='utf-8') as f:
             data = f.read()
         data = data.split('\n')[:-1]
         test_keys = {os.path.join(ljspeech_path, k.split('|')[0].split('/')[-1]):k.split('|')[-1] for k in data} 
